@@ -3,24 +3,65 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Grocery Buddy</title>
-
+    <title>Project1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 </head>
-<h1>Recipe Search</h1>
 
 
-<form id="form">
-    <label for="recipe-input"> Search Recipe</label>
-    <input type="text" id="recipe-input">
-    <br>
-    <input id="search" type="submit" value="Recipe Search">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+                <h1>Recipe Search</h1>
+            <form id="form">
+                    <label for="recipe-input"> Search Recipe</label>
+                    <input type="text" id="recipe-input">
+                    <br>
+                    <input id="search" type="submit" value="Recipe Search">
+                
+                </form>
+        </div>
+            
 
-</form>
+    </div>
+    
+</div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+                <div id="result-show">
+                    </div>
+        </div>
+        <div class="col-lg-6">
+            <div id="restaurantsShow">
+
+            </div>
+        </div>
+    </div>
+        
+</div>
+
+
+
+
+<div id="favourites"></div>
 
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
     <script type="text/javascript">
+
+    var config = {
+    apiKey: "AIzaSyBC2MFv7o8yAgJbIS_HRAdVhkT8jdXX4c0",
+    authDomain: "scam-project.firebaseapp.com",
+    databaseURL: "https://scam-project.firebaseio.com",
+    projectId: "scam-project",
+    storageBucket: "",
+    messagingSenderId: "895095038237"
+  };
+  firebase.initializeApp(config);
+
+  database = firebase.database().ref();
 
 
         $("#search").on("click", function (event) {
@@ -32,13 +73,39 @@
 
             //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
             var queryURL = "https://api.edamam.com/search?q=" + user_input + "&app_id=" + app_id + "&app_key=" + app_key;
+            var fav = $("#favourites");
+
+            $("#restaurantsShow").append(user_input + "Restaurants");
 
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response);
+           
+            var results = response.hits; //in variable to use in loop
+            console.log(results);
+            for (var i = 0; i < results.length; i++) {
+               var resultDiv = $("<div class='recipe-result-div'>"); //creating div to display result name
+                recipeName = results[i].recipe.label;
+                var recipeNameDiv = $("<p>").text("Recipe Title : " + recipeName);
+                console.log(recipeName);
+                resultDiv.append(recipeNameDiv);
+                var recipeCalories = results[i].recipe.calories
+                var recipeCaloriesDiv = $("<p>").text("Calories Count : " + recipeCalories);
+                resultDiv.append(recipeCaloriesDiv);
+                imageURL = results[i].recipe.image;
+                console.log(imageURL);
+                var image = $("<img>").attr("src", imageURL);
+                console.log(image);
+                resultDiv.append(image);
+                $("#result-show").prepend(resultDiv);
+
+            }
+            fav.append(user_input);
+
+
+                
             });
         });
 
