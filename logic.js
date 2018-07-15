@@ -2,6 +2,7 @@
 $(document).ready(function () {
   // ------------- Anum's Code ---------------
   var results;
+  $("#reset").hide();
 
   //Function for Edamam Ajax Call
   function ajaxCall(queryURL) {
@@ -72,6 +73,8 @@ $(document).ready(function () {
 
     document.getElementById('get').onclick = function (e) {
       e.preventDefault();
+      $("#get").hide();
+      $("#reset").show();
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
       console.log(foodStyleText);
@@ -112,13 +115,14 @@ $(document).ready(function () {
           restaurantResultDiv.append(restaurantAddress);
 
           var menuURL = u.restaurants[i].restaurant.menu_url
-          var menuLink = $('<a>').attr('href', menuURL).attr('target', "_blank").text('Menu')
-          restaurantResultDiv.append(menuLink);
-          restaurantResultDiv.append("<br/>");
+          var menuButton = $("<a target='_blank' text='Menu'><button id='infobtn' class = 'btn-info'>Menu</button></a>").attr('href', menuURL);
+
+          restaurantResultDiv.append(menuButton);
 
           var restaurantURL = u.restaurants[i].restaurant.url;
-          var restaurantLink = $('<a>').attr('href', restaurantURL).attr('target', "_blank").text('More Info')
-          restaurantResultDiv.append(restaurantLink);
+          var restaurantButton = $("<a target='_blank' text='Menu'><button id='infobtn' class = 'btn-info'>More Info</button></a>").attr('href', restaurantURL);
+
+          restaurantResultDiv.append(restaurantButton);
           restaurantResultDiv.append("<br/>");
 
 
