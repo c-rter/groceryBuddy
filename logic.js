@@ -1,64 +1,72 @@
 
-  $(document).ready(function () {
-    var results;
-    function ajaxCall(queryURL) {
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            results = response.hits; //in variable to use in loop
-           // console.log(results);
-          // $(".card").empty();
-            //to display result recipes
-            for (var i = 0; i < 5; i++) {
-                //create recipe div
-                var resultDiv = $("<div class= 'card-body'>");
-                //resultDiv.addClass("card col s12 m6 l4");
-               // resultDiv.className = 'card';
-                 //creating div to display result name
-                recipeName = results[i].recipe.label;
-                var recipeNameDiv = $("<div class='card-header'>").text("Recipe Title : " + recipeName);
-                // console.log(recipeName);
-                resultDiv.append(recipeNameDiv);
-                //var recipeCalories = results[i].recipe.calories;
-                //var recipeCaloriesDiv = $("<div class='card-text'>").text("Calories Count : " + recipeCalories);
-                //resultDiv.append(recipeCaloriesDiv);
-                imageURL = results[i].recipe.image;
-                //  console.log(imageURL);
-                var image = $("<img class='card-img-top' style='width:200px'>").attr("src", imageURL);
-                // console.log(image);
-                resultDiv.append(image);
-            
-                var ingBtn = $("<button id='demo' class = 'btn-info'>"); //creating a button for ingredients
-                        ingBtn.text("Ingredients");
-                        ingBtn.attr("Recipe", i);
-                resultDiv.append(ingBtn);
-                
-                $("#recipes").prepend(resultDiv);
-                //console.log(results[i].recipe.ingredientLines);
-            } //for loop ends
-        }); //Ajax function ends
-    }//ajaxcall function ends
-  
+$(document).ready(function () {
+  // ------------- Anum's Code ---------------
+  var results;
+
+  //Function for Edamam Ajax Call
+  function ajaxCall(queryURL) {
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function (response) {
+
+      results = response.hits;
+      //loop to go through the result recipes
+      for (var i = 0; i < results.length; i++) {
+
+        var resultDiv = $("<div id= 'recipe-info'>");
+
+        //recipe title 
+        recipeName = results[i].recipe.label;
+        var recipeNameDiv = $("<div class='card-header'>").text("Recipe Title : " + recipeName);
+        resultDiv.append(recipeNameDiv);
+
+        //recipe image
+        imageURL = results[i].recipe.image;
+        var image = $("<img class='card-img-top'>").attr("src", imageURL);
+        resultDiv.append(image);
+
+        //recipe info button for ingredients & nutritions
+        var ingBtn = $("<button id='infobtn' class = 'btn-info' data-toggle='modal' href='#myModal'>");
+        ingBtn.text("Details");
+        ingBtn.attr("Recipe", i);
+        resultDiv.append(ingBtn);
+
+        //recipe direction button for instructions
+        var instrBtn = $("<button id = 'instr' class = 'btn-info'>");
+        instrBtn.text("Directions");
+        instrBtn.attr("Recipe", i);
+        resultDiv.append(instrBtn);
+
+        //info button content div
+        infoDiv = $("<div class = 'info>");
+        resultDiv.append(infoDiv);
+
+        $("#recipe-div").prepend(resultDiv);
+      } //for loop ends
+
+    }); //Edamam Ajax function ends
+  }//ajaxcall function ends
+
   var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
   function doCORSRequest(options, printResult) {
     var x = new XMLHttpRequest();
     x.open(options.method, cors_api_url + options.url);
-    x.onload = x.onerror = function() {
+    x.onload = x.onerror = function () {
       printResult(
         options.method + ' ' + options.url + '\n' +
         x.status + ' ' + x.statusText + '\n\n' +
         (x.responseText || '')
       );
     };
-  x.setRequestHeader('user-key', '55adf6ab65ffdd6019fcf477dd22d704');
-  x.send(options.data);
+    x.setRequestHeader('user-key', '55adf6ab65ffdd6019fcf477dd22d704');
+    x.send(options.data);
 
   }
 
-  (function() {
+  (function () {
 
-     document.getElementById('get').onclick = function(e) {
+    document.getElementById('get').onclick = function (e) {
       e.preventDefault();
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
@@ -66,13 +74,13 @@
 
       doCORSRequest({
         method: this.id === 'post' ? 'POST' : 'GET',
-      //  url: "robwu.nl/dump.php",
+        //  url: "robwu.nl/dump.php",
         url: "https://developers.zomato.com/api/v2.1/search?entity_id=89&entity_type=city&cuisines=" + foodStyle,
       }, function printResult(result) {
-      //  console.log(result);
-      //  var r = result;
+        //  console.log(result);
+        //  var r = result;
         var s = result.split("\n");
-      //  console.log(s);
+        //  console.log(s);
         var t = s[3];
         var u = JSON.parse(t);
 
@@ -86,52 +94,50 @@
         console.log(u.restaurants[0].restaurant.cuisines);
 
         for (var i = 0; i < 5; i++) {
-             var restaurantResultDiv = $("<div class= 'card-body'>"); //creating div to display result name
-             var restaurantName = u.restaurants[i].restaurant.name;
-             restaurantResultDiv.append("<h1>" + restaurantName + "</h1");
-             restaurantResultDiv.append("<br/>");
+          var restaurantResultDiv = $("<div class= 'card-body'>"); //creating div to display result name
+          var restaurantName = u.restaurants[i].restaurant.name;
+          restaurantResultDiv.append("<h1>" + restaurantName + "</h1");
+          restaurantResultDiv.append("<br/>");
 
-             var restImageURL = u.restaurants[i].restaurant.thumb;
-             var restImage = $("<img>").attr("src", restImageURL);
-             restaurantResultDiv.append(restImage);
-             restaurantResultDiv.append("<br/>");
+          var restImageURL = u.restaurants[i].restaurant.thumb;
+          var restImage = $("<img>").attr("src", restImageURL);
+          restaurantResultDiv.append(restImage);
+          restaurantResultDiv.append("<br/>");
 
-             var restaurantAddress = $("<p>").text("Address : " + u.restaurants[i].restaurant.location.address);
-             restaurantResultDiv.append(restaurantAddress);
+          var restaurantAddress = $("<p>").text("Address : " + u.restaurants[i].restaurant.location.address);
+          restaurantResultDiv.append(restaurantAddress);
 
-            var menuURL = u.restaurants[i].restaurant.menu_url
-            var menuLink = $('<a>').attr('href', menuURL).attr('target', "_blank").text('Menu')
-            restaurantResultDiv.append(menuLink);
-            restaurantResultDiv.append("<br/>");
+          var menuURL = u.restaurants[i].restaurant.menu_url
+          var menuLink = $('<a>').attr('href', menuURL).attr('target', "_blank").text('Menu')
+          restaurantResultDiv.append(menuLink);
+          restaurantResultDiv.append("<br/>");
 
-             var restaurantURL = u.restaurants[i].restaurant.url;
-             var restaurantLink = $('<a>').attr('href', restaurantURL).attr('target', "_blank").text('More Info')
-             restaurantResultDiv.append(restaurantLink);
-             restaurantResultDiv.append("<br/>");
+          var restaurantURL = u.restaurants[i].restaurant.url;
+          var restaurantLink = $('<a>').attr('href', restaurantURL).attr('target', "_blank").text('More Info')
+          restaurantResultDiv.append(restaurantLink);
+          restaurantResultDiv.append("<br/>");
 
 
-             $("#restaurants").prepend(restaurantResultDiv);
-         }
+          $("#restaurants").prepend(restaurantResultDiv);
+        }
 
-         var user_input = $("#recipe-input").val().trim();
-         console.log(user_input);
-         var app_id = "05823dd1";
-         var app_key = "d5dcdb5a64dd4a50eeabc641ee10f4d1";
-         //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
-         var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodStyleText + "&app_id=" + app_id + "&app_key=" + app_key;
-         ajaxCall(queryURL);
-         $("#recipe-input").val("");
-        // console.log(results); 
-         setTimeout(function() {
-            // console.log(results);
-             
-         }, 5000);   
+        // -------- Edamam API Input & Ajax Query 
+        $("#recipe-div").empty();
+        var user_input = $("#recipe-input").val().trim();
+        var app_id = "05823dd1";
+        var app_key = "d5dcdb5a64dd4a50eeabc641ee10f4d1";
+        var foodstyle = "italian";
+
+        //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
+        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodstyle + "&app_id=" + app_id + "&app_key=" + app_key;
+        ajaxCall(queryURL);
+        $("#recipe-input").val("");
 
 
 
-     //   for (var i = 0; i < numArticles; i++) {
+        //   for (var i = 0; i < numArticles; i++) {
 
-    // }
+        // }
 
 
 
@@ -144,29 +150,68 @@
     console.log('cors_api_url = "http://localhost:8080/"');
   }
 
-  
-
-$(document).on("click", ".btn-info", function (event) { //check button class inside the document
-     $(".card-text").empty();
 
 
-        var recipeIng = $(this).attr("Recipe");
-       // console.log(this);
-        //console.log($(this).attr("Recipe"));
-        console.log("a");
-        //console.log(results[recipeIng]["recipe"]);
-        var response = results[recipeIng]["recipe"];
-        //console.log(response);
-        ingredients = response.ingredientLines;
-            //console.log(ingredients);
-         for (var i = 0; i < ingredients.length; i++)
-         {
-             ing = ingredients[i];
-            // console.log(ingredients[i]);
-            var IngtDiv = $("<div class= 'card-text'>").text (ing);
-            $(".card-body").append(IngtDiv);
-          //  console.log(IngtDiv);
-         }
-    }); //recipe result div click function ends
-    
+
+  //---- Edamam Info button function
+  $(document).on("click", "#infobtn", function (event) {
+
+    $(".info").empty();
+
+    //For Ingredients
+    var recipeIng = $(this).attr("Recipe");
+    var response = results[recipeIng]["recipe"];
+    ingredients = response.ingredientLines;
+    var ingrHeading = $("<div id = 'recipe-data'>").html("<h2> Ingredients: </h2>");
+    $(".info").append(ingrHeading);
+
+    for (var i = 0; i < ingredients.length; i++) {
+
+      ing = ingredients[i];
+      var IngtDiv = $("<div id= 'recipe-data'>").text(ing);
+      $(".info").append(IngtDiv);
+    }
+
+    $("#recipe-info").append(infoDiv);
+
+
+    //For Nutritions
+    var recipeNutr = $(this).attr("Recipe");
+
+    serving = response.yield;
+    nutCal = Math.round(response.calories / serving);
+    nutFat = Math.round(response.totalNutrients.FAT.quantity / serving);
+    nutCarb = Math.round(response.totalNutrients.CHOCDF.quantity / serving);
+    nutProt = Math.round(response.totalNutrients.PROCNT.quantity / serving);
+    console.log(nutProt);
+
+    var nutHeading = $("<div id = 'recipe-data'>").html("<h2> Nutritions: </h2>");
+    var serdiv = $("<div id = 'recipe-data'>").text("# Servings: " + serving);
+    var nCalDiv = $("<div id = 'recipe-data'>").text("Calories per Serving: " + nutCal);
+    var nFatDiv = $("<div id = 'recipe-data'>").text("Fats : " + nutFat + response.totalNutrients.FAT.unit);
+    var nCarDiv = $("<div id = 'recipe-data'>").text("Carbs: " + nutCarb + response.totalNutrients.CHOCDF.unit);
+    var nProDiv = $("<div id = 'recipe-data'>").text("Protien: " + nutProt + response.totalNutrients.PROCNT.unit);
+
+    $(".info").append(nutHeading)
+      .append(serdiv)
+      .append(nCalDiv)
+      .append(nFatDiv)
+      .append(nCarDiv)
+      .append(nProDiv);
+    $("#recipe-info").append(infoDiv);
+
+  }); //Info button function ends
+
+  //---- Edamam direction button function
+  $(document).on("click", "#instr", function (event) { //check button class inside the document
+
+    $("#ing").empty();
+
+    var recipeInstr = $(this).attr("Recipe");
+    var response = results[recipeInstr]["recipe"];
+    instructionURL = response.url;
+    window.open(instructionURL, '_blank');
+
+  }); //direction button function ends
+
 });//document ready function ends
