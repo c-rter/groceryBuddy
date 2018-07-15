@@ -12,14 +12,16 @@ $(document).ready(function () {
 
       results = response.hits;
       //loop to go through the result recipes
-      for (var i = 0; i < results.length; i++) {
+      for (var i = 0; i < 5; i++) {
 
-        var resultDiv = $("<div id= 'recipe-info'>");
+        var resultDiv = $("<div class= 'card-body'>");
 
         //recipe title 
         recipeName = results[i].recipe.label;
-        var recipeNameDiv = $("<div class='card-header'>").text("Recipe Title : " + recipeName);
+        var recipeNameDiv = $("<div class='card-header'>").html("<h1>" + recipeName + "</h1>") ;
         resultDiv.append(recipeNameDiv);
+        resultDiv.append("<br/>");
+        
 
         //recipe image
         imageURL = results[i].recipe.image;
@@ -41,8 +43,10 @@ $(document).ready(function () {
         //info button content div
         infoDiv = $("<div class = 'info>");
         resultDiv.append(infoDiv);
+        resultDiv.append("<br/>");
+        resultDiv.append("<br/>");
 
-        $("#recipe-div").prepend(resultDiv);
+        $("#recipes").prepend(resultDiv);
       } //for loop ends
 
     }); //Edamam Ajax function ends
@@ -122,7 +126,7 @@ $(document).ready(function () {
         }
 
         // -------- Edamam API Input & Ajax Query 
-        $("#recipe-div").empty();
+        $("#recipes").empty();
         var user_input = $("#recipe-input").val().trim();
         var app_id = "05823dd1";
         var app_key = "d5dcdb5a64dd4a50eeabc641ee10f4d1";
@@ -172,7 +176,7 @@ $(document).ready(function () {
       $(".info").append(IngtDiv);
     }
 
-    $("#recipe-info").append(infoDiv);
+    $(".card-body").append(infoDiv);
 
 
     //For Nutritions
@@ -198,7 +202,7 @@ $(document).ready(function () {
       .append(nFatDiv)
       .append(nCarDiv)
       .append(nProDiv);
-    $("#recipe-info").append(infoDiv);
+    $(".card-body").append(infoDiv);
 
   }); //Info button function ends
 
