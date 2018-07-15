@@ -1,137 +1,155 @@
 /* Body */
 body { 
-    background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;}
-  /* Nabvar */
-  .navbar{
-    float: left;
-    color: whitesmoke;
-  }
-  h1, h2, h3 {color: whitesmoke;}
-  /* Jumbotron */
-  .jumbotron { background-color: transparent;
-    text-align: center;
-  }
-  .custom-select {
-  height: 50px;
+  background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;}
+/* Nabvar */
+.navbar{
+  color: whitesmoke;
+}
+h1 {font-size: 26px;
+color: whitesmoke;}
+h2 {color: black;}
+h3 {color: whitesmoke;}
+/* Jumbotron */
+.jumbotron { background-color: transparent;
   text-align: center;
+}
+.custom-select {font-size: 20px;
+height: 40px;
+text-align: center;
+background-color: black;
+color: whitesmoke;}
+/* Dropdown */
+.dropdown {
+  box-align: center;
+  
+}
+/* Checkbox */
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: whitesmoke;
+}
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* Footer */
+footer {width: 100%;
+  height: 12%;
+  background-color:black;
+  color: whitesmoke;
+  float: right;}
+.fa {
+padding: 20px;
+font-size: 30px;
+width: 50px;
+text-align: center;
+text-decoration: none;
+margin: 5px 2px;
+}
+.fa:hover {
+opacity: 0.7;
+}
+.fa-facebook {
+background: #3B5998;
+color: white;
+}
+.fa-twitter {
+background: #55ACEE;
+color: white;
+align-self: auto;
+}
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+/* Login CSS - Sign Up CSS  */
+.card-body { border: 1px solid #fff;
+  
+  font-size: 20px;
   background-color: black;
-  color: whitesmoke;}
-  /* Dropdown */
-  .dropdown {
-    box-align: center;
-    
-  }
-  /* Checkbox */
-  /* Customize the label (the container) */
-  .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: whitesmoke;
-  }
-  /* Hide the browser's default checkbox 
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  } */
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-  }
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  /* Style the checkmark/indicator */
-  .container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  /* Footer */
-  footer {width: 100%;
-    height: 12%;
-    background-color:black;
-    color: whitesmoke;
-    float: right;}
-  .fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 50px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  }
-  .fa:hover {
-  opacity: 0.7;
-  }
-  .fa-facebook {
-  background: #3B5998;
-  color: white;
-  }
-  .fa-twitter {
-  background: #55ACEE;
-  color: white;
-  align-self: auto;
-  }
-  .fa-instagram {
-    background: #125688;
-    color: white;
-  }
-  /* Login CSS - Sign Up CSS  */
-  .card-body { border: 1px solid #fff;
-    padding-top: 50px;
-    padding-bottom: 60px;
-    font-size: 20px;
-    background-color: black;
-    color: whitesmoke;
-    margin-top: 20vh;
-    -webkit-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
-  -moz-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
-  box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
-  }
-  /* Search Page CSS */
-  .card-body1 { background-color: whitesmoke; }
-  h5 {color: black;
-  font-size: 30px;}
-  .card-text {font-size: 20px;
-  color: black;}
-  /* Ingredient Form */
-  #input-ingredient{opacity: 1;
+  color: whitesmoke;
+  margin-top: 2vh;
+  -webkit-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
+-moz-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
+box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
+}
+/* Search Page CSS */
+.card-body1 { background-color: whitesmoke; }
+h5 {color: black;
+font-size: 30px;}
+.card-text {font-size: 20px;
+color: black;}
+/* Ingredient Form */
+#input-ingredient{opacity: 1;
+background-color: black;
+color: white;}
+#recipe-input{opacity: 1;
   background-color: black;
   color: white;}
+  /* Results */
+#recipies {width: 20px;
+height: 20px;
+border: 2px;
+} 
+.btn-block{color: black}
+#recipe-info { outline-color: white;
+background-color: black;}
+.heading {border: 1px solid #fff;
+  text-align: center;
+  font-size: 40px;
+  background-color: black;
+  color: whitesmoke;
+  margin-top: 3vh;}
