@@ -1,9 +1,9 @@
-
 $(document).ready(function () {
   // ------------- Anum's Code ---------------
   var results;
   $("#resetButton").hide();
-  $(".heading").hide();
+  $(".heading").css("visibility","hidden");
+  $("#div-show").css("visibility","visible");
 
   //Function for Edamam Ajax Call
   function ajaxCall(queryURL) {
@@ -48,7 +48,7 @@ $(document).ready(function () {
         infoDiv = $("<div class = 'info>");
         resultDiv.append(infoDiv);
         resultDiv.append("<br/>");
-        resultDiv.append("<br/>");
+
 
         $("#recipes").prepend(resultDiv);
       } //for loop ends
@@ -78,7 +78,8 @@ $(document).ready(function () {
       e.preventDefault();
       $("#get").hide();
       $("#resetButton").show();
-      $(".heading").show();
+      $(".heading").css("visibility","visible");
+      
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
       console.log(foodStyleText);
@@ -129,8 +130,8 @@ $(document).ready(function () {
           restaurantResultDiv.append(restaurantButton);
           restaurantResultDiv.append("<br/>");
 
-
           $("#restaurants").prepend(restaurantResultDiv);
+          
         }
 
         // -------- Edamam API Input & Ajax Query 
@@ -138,28 +139,21 @@ $(document).ready(function () {
         var user_input = $("#recipe-input").val().trim();
         var app_id = "05823dd1";
         var app_key = "d5dcdb5a64dd4a50eeabc641ee10f4d1";
-        var foodstyle = "italian";
+        var foodStyleText = $("#food-style option:selected").text();
+        console.log(foodStyleText);
 
         //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
-        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodstyle + "&app_id=" + app_id + "&app_key=" + app_key;
+        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodStyleText + "&app_id=" + app_id + "&app_key=" + app_key;
         ajaxCall(queryURL);
         $("#recipe-input").val("");
-
-
-
-        //   for (var i = 0; i < numArticles; i++) {
-
-        // }
-
-
 
       });
     };
 
   })();
   if (typeof console === 'object') {
-    console.log('// To test a local CORS Anywhere server, set cors_api_url. For example:');
-    console.log('cors_api_url = "http://localhost:8080/"');
+    //console.log('// To test a local CORS Anywhere server, set cors_api_url. For example:');
+   // console.log('cors_api_url = "http://localhost:8080/"');
   }
 
 
