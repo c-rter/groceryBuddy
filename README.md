@@ -6,4 +6,5 @@ Enter a style of food and ingredients of your choice, and receive a list of grea
 
 This app uses HTML, CSS, Bootstrap, Javascript, jQuery, AJAX, Firebase, and Parsely.
 
-Powered by Zomato and Edamame
+Powered by Zomato and Edamam API
+https://c-rter.github.io/whatsForDinnerTO/
