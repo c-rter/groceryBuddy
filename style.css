@@ -1,9 +1,10 @@
 /* Body */
-body { 
+body { background: url('background1.jpg');
   background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;}
-/* Nabvar */
+
+    /* Nabvar */
 .navbar{
   color: whitesmoke;
 }
@@ -127,26 +128,33 @@ align-self: auto;
 box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
 }
 /* Search Page CSS */
+
 .card-body1 { background-color: whitesmoke; }
 h5 {color: black;
 font-size: 30px;}
 .card-text {font-size: 20px;
 color: black;}
+
 /* Ingredient Form */
+
 #input-ingredient{opacity: 1;
 background-color: black;
 color: white;}
 #recipe-input{opacity: 1;
   background-color: black;
   color: white;}
-  /* Results */
+  
+/* Results */
 #recipies {width: 20px;
 height: 20px;
 border: 2px;
 } 
+
 .btn-block{color: black}
+
 #recipe-info { outline-color: white;
 background-color: black;}
+
 .heading {border: 1px solid #fff;
   text-align: center;
   font-size: 40px;
