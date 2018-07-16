@@ -2,7 +2,7 @@
 $(document).ready(function () {
   // ------------- Anum's Code ---------------
   var results;
-  $("#reset").hide();
+  $("#resetButton").hide();
 
   //Function for Edamam Ajax Call
   function ajaxCall(queryURL) {
@@ -74,7 +74,7 @@ $(document).ready(function () {
     document.getElementById('get').onclick = function (e) {
       e.preventDefault();
       $("#get").hide();
-      $("#reset").show();
+      $("#resetButton").show();
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
       console.log(foodStyleText);
