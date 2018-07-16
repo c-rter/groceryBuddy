@@ -144,7 +144,7 @@ $(document).ready(function () {
         console.log(foodStyleText);
 
         //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
-        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodStyleText + "&app_id=" + app_id + "&app_key=" + app_key;
+        var queryURL = "https://api.edamam.com/search?q=" + foodStyleText + "%20" + user_input + "&app_id=" + app_id + "&app_key=" + app_key;
         ajaxCall(queryURL);
         $("#recipe-input").val("");
 
