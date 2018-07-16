@@ -2,6 +2,9 @@
 $(document).ready(function () {
   // ------------- Anum's Code ---------------
   var results;
+  $("#resetButton").hide();
+  $(".heading").css("visibility","hidden");
+  $("#div-show").css("visibility","visible");
 
   //Function for Edamam Ajax Call
   function ajaxCall(queryURL) {
@@ -27,6 +30,8 @@ $(document).ready(function () {
         imageURL = results[i].recipe.image;
         var image = $("<img class='card-img-top'>").attr("src", imageURL);
         resultDiv.append(image);
+        resultDiv.append("<br/>");
+        resultDiv.append("<br/>");
 
         //recipe info button for ingredients & nutritions
         var ingBtn = $("<button id='infobtn' class = 'btn-info' data-toggle='modal' href='#myModal'>");
@@ -44,7 +49,7 @@ $(document).ready(function () {
         infoDiv = $("<div class = 'info>");
         resultDiv.append(infoDiv);
         resultDiv.append("<br/>");
-        resultDiv.append("<br/>");
+
 
         $("#recipes").prepend(resultDiv);
       } //for loop ends
@@ -72,6 +77,10 @@ $(document).ready(function () {
 
     document.getElementById('get').onclick = function (e) {
       e.preventDefault();
+      $("#get").hide();
+      $("#resetButton").show();
+      $(".heading").css("visibility","visible");
+      
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
       console.log(foodStyleText);
@@ -104,7 +113,7 @@ $(document).ready(function () {
           restaurantResultDiv.append("<br/>");
 
           var restImageURL = u.restaurants[i].restaurant.thumb;
-          var restImage = $("<img>").attr("src", restImageURL);
+          var restImage = $("<img class='card-img-top'>").attr("src", restImageURL);
           restaurantResultDiv.append(restImage);
           restaurantResultDiv.append("<br/>");
 
@@ -112,17 +121,18 @@ $(document).ready(function () {
           restaurantResultDiv.append(restaurantAddress);
 
           var menuURL = u.restaurants[i].restaurant.menu_url
-          var menuLink = $('<a>').attr('href', menuURL).attr('target', "_blank").text('Menu')
-          restaurantResultDiv.append(menuLink);
-          restaurantResultDiv.append("<br/>");
+          var menuButton = $("<a target='_blank' text='Menu'><button id='infobtn' class = 'btn-info'>Menu</button></a>").attr('href', menuURL);
+
+          restaurantResultDiv.append(menuButton);
 
           var restaurantURL = u.restaurants[i].restaurant.url;
-          var restaurantLink = $('<a>').attr('href', restaurantURL).attr('target', "_blank").text('More Info')
-          restaurantResultDiv.append(restaurantLink);
+          var restaurantButton = $("<a target='_blank' text='Menu'><button id='infobtn' class = 'btn-info'>More Info</button></a>").attr('href', restaurantURL);
+
+          restaurantResultDiv.append(restaurantButton);
           restaurantResultDiv.append("<br/>");
 
-
           $("#restaurants").prepend(restaurantResultDiv);
+          
         }
 
         // -------- Edamam API Input & Ajax Query 
@@ -130,28 +140,21 @@ $(document).ready(function () {
         var user_input = $("#recipe-input").val().trim();
         var app_id = "05823dd1";
         var app_key = "d5dcdb5a64dd4a50eeabc641ee10f4d1";
-        var foodstyle = "italian";
+        var foodStyleText = $("#food-style option:selected").text();
+        console.log(foodStyleText);
 
         //https://api.edamam.com/search?q=chicken&app_id=05823dd1&app_key=d5dcdb5a64dd4a50eeabc641ee10f4d1&from=0&to=3&calories=591-722&health=alcohol-free"
-        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodstyle + "&app_id=" + app_id + "&app_key=" + app_key;
+        var queryURL = "https://api.edamam.com/search?q=" + user_input + "%20" + foodStyleText + "&app_id=" + app_id + "&app_key=" + app_key;
         ajaxCall(queryURL);
         $("#recipe-input").val("");
-
-
-
-        //   for (var i = 0; i < numArticles; i++) {
-
-        // }
-
-
 
       });
     };
 
   })();
   if (typeof console === 'object') {
-    console.log('// To test a local CORS Anywhere server, set cors_api_url. For example:');
-    console.log('cors_api_url = "http://localhost:8080/"');
+    //console.log('// To test a local CORS Anywhere server, set cors_api_url. For example:');
+   // console.log('cors_api_url = "http://localhost:8080/"');
   }
 
 
