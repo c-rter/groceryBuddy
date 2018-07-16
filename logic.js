@@ -3,6 +3,7 @@ $(document).ready(function () {
   // ------------- Anum's Code ---------------
   var results;
   $("#resetButton").hide();
+  $(".heading").hide();
 
   //Function for Edamam Ajax Call
   function ajaxCall(queryURL) {
@@ -28,6 +29,8 @@ $(document).ready(function () {
         imageURL = results[i].recipe.image;
         var image = $("<img class='card-img-top'>").attr("src", imageURL);
         resultDiv.append(image);
+        resultDiv.append("<br/>");
+        resultDiv.append("<br/>");
 
         //recipe info button for ingredients & nutritions
         var ingBtn = $("<button id='infobtn' class = 'btn-info' data-toggle='modal' href='#myModal'>");
@@ -75,6 +78,7 @@ $(document).ready(function () {
       e.preventDefault();
       $("#get").hide();
       $("#resetButton").show();
+      $(".heading").show();
       var foodStyle = $("#food-style").val();
       var foodStyleText = $("#food-style option:selected").text();
       console.log(foodStyleText);
@@ -107,7 +111,7 @@ $(document).ready(function () {
           restaurantResultDiv.append("<br/>");
 
           var restImageURL = u.restaurants[i].restaurant.thumb;
-          var restImage = $("<img>").attr("src", restImageURL);
+          var restImage = $("<img class='card-img-top'>").attr("src", restImageURL);
           restaurantResultDiv.append(restImage);
           restaurantResultDiv.append("<br/>");
 
