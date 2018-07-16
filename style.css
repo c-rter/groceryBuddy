@@ -3,7 +3,6 @@ body { background: url('background1.jpg');
   background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;}
-
     /* Nabvar */
 .navbar{
   color: whitesmoke;
@@ -16,16 +15,17 @@ h3 {color: whitesmoke;}
 .jumbotron { background-color: transparent;
   text-align: center;
 }
-.custom-select {font-size: 20px;
-height: 40px;
-text-align: center;
-background-color: black;
-color: whitesmoke;}
-/* Dropdown */
-.dropdown {
-  box-align: center;
+.custom-select {font-size: 15px;
+  height: 40px;
+  text-align: center;
+  background-color: black;
+  color: whitesmoke;}
+  /* Dropdown */
+  .dropdown {
+    box-align: center;
+    
+  }
   
-}
 /* Checkbox */
 /* Customize the label (the container) */
 .container {
@@ -123,20 +123,9 @@ align-self: auto;
   background-color: black;
   color: whitesmoke;
   margin-top: 2vh;
-  -webkit-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
--moz-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
-box-shadow: -4px 5px 15px 27px rgba(0,0,0,0.48);
+ 
 }
-/* Search Page CSS */
-
-.card-body1 { background-color: whitesmoke; }
-h5 {color: black;
-font-size: 30px;}
-.card-text {font-size: 20px;
-color: black;}
-
 /* Ingredient Form */
-
 #input-ingredient{opacity: 1;
 background-color: black;
 color: white;}
@@ -149,15 +138,34 @@ color: white;}
 height: 20px;
 border: 2px;
 } 
-
 .btn-block{color: black}
-
 #recipe-info { outline-color: white;
 background-color: black;}
 
-.heading {border: 1px solid #fff;
+.heading{
+  border: 1px solid #fff;
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   background-color: black;
   color: whitesmoke;
-  margin-top: 3vh;}
+  margin-top: 3vh;
+justify-content: center;
+
+}
+
+.heading2{
+
+
+  border: 1px solid #fff;
+  text-align: center;
+  font-size: 30px;
+  background-color: black;
+  color: whitesmoke;
+  margin-top: 3vh;
+justify-content: center;
+
+}
+
+.card-header{
+  padding: 0px;
+}
