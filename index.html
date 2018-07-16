@@ -20,12 +20,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
     <script src="logic.js"></script> 
-
     </head>
     <body >
     
       <!-- Navbar -->
-
       <style>
         .hidden{
             display:none;
@@ -39,7 +37,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           
-            <form data-parsley-validate="">
+            <form data-parsley-validate="" id="signin-form">
                 <input id="email" type="email" placeholder="email" data-parsley-trigger="change">
                 <input id="pass" type="password" placeholder="password" data-parsley-minlength="6" data-parsley-trigger="change">
                 
@@ -52,13 +50,8 @@
             <div id="currentUser"></div>
        
         </nav>
-
-
-
         <br>
         <br>
-
-
               <!-- Jumbotron -->
               <div class="jumbotron jumbotron-fluid">
                   <div class="container">
@@ -66,8 +59,6 @@
                     <p class="lead"><h3>Let us help you decide.</h3></p>
                   </div>
                 </div>
-
-
               <!-- Main Body -->
                     <div class="container">
                         <div class="row">
@@ -97,7 +88,6 @@
                                 <option value="99">Vietnamese</option>
                             </select>
                           </div>
-
                           <div class="col-lg-6">
                                 <h1>Add Your Favorite Ingredient:</h1> 
                                 <form>
@@ -105,21 +95,16 @@
                                     <input type="text" class="form-control"  id="recipe-input"  placeholder="Enter Ingredient">
                                   </div>
                                 <br>
-                                <br>
                                 <button type="submit" id="get" class="btn btn-success btn-lg btn-block">Enter</button>
                                 <button id="resetButton" class="btn btn-success btn-lg btn-block" value="Refresh Page" onClick="window.location.href=window.location.href">Refresh Page</button>                     </form>
-
                             </form>
                           </div>
                         </div>
-
                         <div class="row">
                                 <div class="col-sm-4 heading">Recipes</div>
                                 <div class="col-sm-4 heading">Restaurants</div>
                                 <div class="col-sm-4 heading" id = "div-show">Trending Right Now</div>
-
                             </div>
-
                         <div class="row">
                             <div class="col-sm-4" id="recipes">
                             </div>
@@ -133,18 +118,15 @@
                     </div>
                                  <br>
                                  <br>
-
               <!-- Card -->
-                                  <div id='recipe-div' class="card " style="width: 18rem;">
+                                  <!-- <div id='recipe-div' class="card " style="width: 18rem;">
                                     <img class="card-img-top ">
                                     <h5 class="card-title "></h5>
                                     <div id="recipe-info" class="card card-body"></div>
-                                  </div>
-
+                                  </div> -->
               <!-- Modal -->
                                  <div class="modal fade" id="myModal" role="dialog">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
-
                                      <!-- Modal content-->
                                      <div class="modal-content">
                                        <div class="modal-header">
@@ -157,7 +139,6 @@
                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                       </div>
                                      </div>
-
                                     </div>
                                  </div>
                <!-- Footer -->
@@ -177,10 +158,7 @@
                                         </div>
                                     </div>
                                 </footer>
-
   <script>
-
-
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyBC2MFv7o8yAgJbIS_HRAdVhkT8jdXX4c0",
@@ -191,31 +169,23 @@
       messagingSenderId: "895095038237"
     };
     firebase.initializeApp(config);
-
 var database = firebase.database();
 var userId = [];
 var userEmail = [];
 var searchList = [];
-
 $("#login").on('click', function(){
-
     event.preventDefault();
-
     userId.splice(0, userId.length);
     userEmail.splice(0, userEmail.length);
     
     var email = $("#email").val().trim();
     var password = $("#pass").val().trim();
-
     console.log(email);
     console.log(password);
-
     promise = firebase.auth();
-
     promise.signInWithEmailAndPassword(email, password).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
-
         if (errorCode === 'auth/wrong-password') {
                 $("#error").html('Wrong password.');
             } else {
@@ -225,28 +195,19 @@ $("#login").on('click', function(){
             
 })
 })
-
 $("#signup").on('click', function(){
-
     event.preventDefault();
     
     var email = $("#email").val().trim();
     var password = $("#pass").val().trim();
-
     console.log(email);
     console.log(password);
-
     promise = firebase.auth();
-
     promise.createUserWithEmailAndPassword(email, password).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;       
-
         $("#error").html("<p>" + errorMessage + "</p>");
-
-
 })
-
 })
 $("#logout").on('click', function(){
     event.preventDefault();
@@ -256,12 +217,9 @@ $("#logout").on('click', function(){
     console.log(userId[0]);
     firebase.auth().signOut();
 })
-
 function displayFavourites(){
     
-
 }
-
 firebase.auth().onAuthStateChanged(function(user){
     if(user){
         
@@ -272,21 +230,17 @@ firebase.auth().onAuthStateChanged(function(user){
         userId.push(user.uid);
         userEmail.push(user.email);
         //console.log(userId)
-
-
     } else{
         $("#logout").addClass("hidden");
         console.log("not signed in");
-        $("#currentUser").html("<p> Please sign in </p>")
+        $("#currentUser").html("<br> <p>Please sign in </p>")
         $("#error").html("");
         userId.splice(0, userId.length);
         userEmail.splice(0, userEmail.length);
     
     }
 })
-
 $("#get").on('click', function(){
-
   var recipe = $("#recipe-input").val().trim();
   var foodStyleText = $("#food-style option:selected").text();
   var term = foodStyleText + " " + recipe;
@@ -296,35 +250,24 @@ $("#get").on('click', function(){
   var dateAdded;
   console.log(token);
   console.log(term);
-
   var newUser = {
     searchList: searchList,
     userId: token,
     username: username
   }
-
   database.ref().push(newUser);
-
 });
-
 database.ref().on('child_added', function(childSnapshot){
-
   //console.log(childSnapshot.val().name);
-
   let data = childSnapshot.val();
   let sList = data.searchList;
   let uId = data.userId;
   let username = data.username;
-
    var favDiv = $("<div class= 'card-body' style='overflow: auto'>");
    var list = $("<p style='font-size: small'>").html(sList +"<br>"+ "Searched by: " + username );
    favDiv.append(list);
-
-
   $("#firebaseList").append(favDiv);
-
 })
-
   </script>
                  
                   
